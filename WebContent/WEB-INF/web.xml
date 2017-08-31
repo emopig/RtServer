@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>RtServer</display-name>
+  <welcome-file-list>
+    <welcome-file>jsonServlet</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>JsonServlet</servlet-name>
+    <servlet-class>rt.server.servlet.JsonServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JsonServlet</servlet-name>
+    <url-pattern>/jsonServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Sql2Json</display-name>
+    <servlet-name>Sql2Json</servlet-name>
+    <servlet-class>rt.server.servlet.Sql2Json</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Sql2Json</servlet-name>
+    <url-pattern>/sql2json</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>Call4Result</display-name>
+    <servlet-name>Call4Result</servlet-name>
+    <servlet-class>rt.server.servlet.Call4Result</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Call4Result</servlet-name>
+    <url-pattern>/call4result</url-pattern>
+  </servlet-mapping>
+
+
+</web-app>
