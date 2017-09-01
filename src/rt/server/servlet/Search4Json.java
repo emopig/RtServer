@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 import oracle.jdbc.OracleTypes;
 
-public class Call4Result extends HttpServlet {
+public class Search4Json extends HttpServlet {
 
 	private static final long serialVersionUID = 11L;
 	private static final String ERROR_PREX = "ERROR_SERVER:";
@@ -30,7 +30,7 @@ public class Call4Result extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		response.setContentType("text/json;charset=UTF-8");
-		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
 
 		java.sql.Connection conn = null;
@@ -39,15 +39,17 @@ public class Call4Result extends HttpServlet {
 
 		try {
 			Context ctx = new InitialContext();
+			Context envCtx = (Context) ctx.lookup("java:/comp/env");
+			//DataSource ds = (DataSource) ctx.lookup("jndi-lj");
+			DataSource ds = (DataSource) envCtx.lookup("jndi-lj");
 
-			DataSource ds = (DataSource) ctx.lookup("jndi-lj");
 			// Create a connection object
 			conn = ds.getConnection();
 			//conn.setAutoCommit(true);
 			
-			String keywords = new String(request.getParameter("keywords").getBytes("ISO-8859-1"), "UTF-8");
-			int rowFrom = Integer.parseInt(new String(request.getParameter("from").getBytes("ISO-8859-1"), "UTF-8")) ;
-			int rowTo = Integer.parseInt(new String(request.getParameter("to").getBytes("ISO-8859-1"), "UTF-8")) ;
+			String keywords = new String(request.getParameter("keywords").getBytes("ISO8859-1"), "UTF-8");
+			int rowFrom = Integer.parseInt(new String(request.getParameter("from").getBytes("ISO8859-1"), "UTF-8")) ;
+			int rowTo = Integer.parseInt(new String(request.getParameter("to").getBytes("ISO8859-1"), "UTF-8")) ;
 			JSONArray jsonArray = new JSONArray();		
 			
 			CallableStatement cs = conn.prepareCall("Call lj.lj_p_search(?,?,?,?,?)");
@@ -94,6 +96,8 @@ public class Call4Result extends HttpServlet {
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		request.setCharacterEncoding("UTF-8");
+
 		doPost(request, response);
 	}
 

@@ -40,8 +40,10 @@ public class JsonServlet extends HttpServlet {
 
 		try {
 			Context ctx = new InitialContext();
-
-			DataSource ds = (DataSource) ctx.lookup("jndi-rt");
+			Context envCtx = (Context) ctx.lookup("java:/comp/env");
+			//DataSource ds = (DataSource) ctx.lookup("jndi-lj");
+			DataSource ds = (DataSource) envCtx.lookup("jndi-lj");
+			
 			// Create a connection object
 			conn = ds.getConnection();
 			conn.setAutoCommit(true);
